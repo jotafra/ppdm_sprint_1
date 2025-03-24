@@ -1,13 +1,17 @@
 import React, {useState} from "react";
 import {View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Image} from "react-native";
 import api from "../axios/axios";
+import { Ionicons } from "@expo/vector-icons";
+
 
 export default function Cadastro({ navigation }){
     const [user, setUser] = useState({
         name:"",
         email:"",
         cpf:"",
-        password:""
+        password:"",
+        showPassord: false
+
     });
     
     async function handleCadastro(){
@@ -69,15 +73,27 @@ export default function Cadastro({ navigation }){
                         }}
                     />
                     
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Senha"
-                        secureTextEntry={true}
-                        value={user.password}
-                        onChangeText={(value)=> {
-                            setUser({ ...user, password: value });
-                        }}
-                    />
+                    <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder="Senha"
+          value={user.password}
+          secureTextEntry={user.showPassord}
+          onChangeText={(value) => {
+            setUser({ ...user, password: value });
+          }}
+        ></TextInput>
+        <TouchableOpacity
+          onPress={() => setUser({ ...user, showPassord: !user.showPassord })}
+        >
+          <Ionicons
+            name={user.showPassord ? "eye-off-outline" : "eye-outline"}
+            size={24}
+            color="gray"
+          />
+        </TouchableOpacity>
+
+      </View>
                     
                     <TouchableOpacity 
                         onPress={handleCadastro} 
@@ -194,5 +210,21 @@ const styles = StyleSheet.create({
         backgroundColor: "#CC1E1E",
         width: "100%",
         height: 50,
-    }
+    },
+    passwordContainer: {
+        width: "100%",
+        height: 45,
+        backgroundColor: "white",
+        borderRadius: 25,
+        marginVertical: 8,
+        paddingHorizontal: 15,
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%",
+        paddingRight: 10,
+    },
+    passwordInput: {
+      flex: 1,
+      height: 40,
+    },
 });
