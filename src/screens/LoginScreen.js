@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import {View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Button, Image} from "react-native";
 import api from "../axios/axios";
 import Logo from "../../assets/logosenai.png"
+import { Ionicons } from "@expo/vector-icons";
+
 
 export default function Login({ navigation }) {
   const [user, setUser] = useState({
     email: "",
     password: "",
+    showPassord: false,
   });
 
   async function handleLogin() {
@@ -22,7 +25,6 @@ export default function Login({ navigation }) {
   }
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
       </View>
 
@@ -39,24 +41,38 @@ export default function Login({ navigation }) {
         </View>
           </View>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={user.email}
-            onChangeText={(value) => {
-              setUser({ ...user, email: value });
-            }}
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder="Email"
+          value={user.email}
+          onChangeText={(value) => {
+            setUser({ ...user, email: value });
+          }}
+        ></TextInput>
+      </View>
+
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder="Senha"
+          value={user.password}
+          secureTextEntry={user.showPassord}
+          onChangeText={(value) => {
+            setUser({ ...user, password: value });
+          }}
+        ></TextInput>
+        <TouchableOpacity
+          onPress={() => setUser({ ...user, showPassord: !user.showPassord })}
+        >
+          <Ionicons
+            name={user.showPassord ? "eye-off" : "eye"}
+            size={24}
+            color="gray"
           />
-          
-          <TextInput
-            style={styles.input}
-            placeholder="Senha"
-            secureTextEntry={true}
-            value={user.password}
-            onChangeText={(value) => {
-              setUser({ ...user, password: value });
-            }}
-          />
+        </TouchableOpacity>
+
+      </View>
           
           <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
             <Text style={styles.loginButtonText}>Entrar</Text>
@@ -131,6 +147,22 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     paddingHorizontal: 15,
   },
+  passwordContainer: {
+    width: "100%",
+    height: 45,
+    backgroundColor: "white",
+    borderRadius: 25,
+    marginVertical: 8,
+    paddingHorizontal: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    paddingRight: 10,
+  },
+  passwordInput: {
+    flex: 1,
+    height: 40,
+  },
   loginButton: {
     width: "100%",
     height: 45,
@@ -163,5 +195,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#CC1E1E",
     width: "100%",
     height: 50,
-  }
+  },
 });
