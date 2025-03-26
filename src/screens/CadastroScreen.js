@@ -6,10 +6,10 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default function Cadastro({ navigation }){
     const [user, setUser] = useState({
-        name:"",
+        nome:"",
         email:"",
         cpf:"",
-        password:"",
+        senha:"",
         showPassord: false
 
     });
@@ -21,6 +21,7 @@ export default function Cadastro({ navigation }){
                 navigation.navigate("Login");
             },(error)=>{
                 Alert.alert('Erro', error.response.data.error);
+                console.log("erro aq")
             }
         );
     }
@@ -49,9 +50,9 @@ export default function Cadastro({ navigation }){
                     <TextInput
                         style={styles.input}
                         placeholder="Nome"
-                        value={user.name}
+                        value={user.nome}
                         onChangeText={(value)=> {
-                            setUser({ ...user, name: value });
+                            setUser({ ...user, nome: value });
                         }}
                     />
                     
@@ -77,10 +78,10 @@ export default function Cadastro({ navigation }){
         <TextInput
           style={styles.passwordInput}
           placeholder="Senha"
-          value={user.password}
+          value={user.senha}
           secureTextEntry={user.showPassord}
           onChangeText={(value) => {
-            setUser({ ...user, password: value });
+            setUser({ ...user, senha: value });
           }}
         ></TextInput>
         <TouchableOpacity
@@ -92,9 +93,7 @@ export default function Cadastro({ navigation }){
             color="gray"
           />
         </TouchableOpacity>
-
       </View>
-                    
                     <TouchableOpacity 
                         onPress={handleCadastro} 
                         style={styles.cadastrarButton}

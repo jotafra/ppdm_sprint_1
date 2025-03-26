@@ -4,12 +4,11 @@ import api from "../axios/axios";
 import Logo from "../../assets/logosenai.png"
 import { Ionicons } from "@expo/vector-icons";
 
-
 export default function Login({ navigation }) {
   const [user, setUser] = useState({
     email: "",
-    password: "",
-    showPassord: false,
+    senha: "",
+    showPassword: true
   });
 
   async function handleLogin() {
@@ -20,26 +19,24 @@ export default function Login({ navigation }) {
       },
       (error) => {
         Alert.alert("Erro", error.response.data.error);
+        console.log("erro aq")
       }
     );
   }
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-      </View>
+      <View style={styles.header}></View>
 
       {/* Conteúdo principal */}
       <View style={styles.content}>
         <View style={styles.loginCard}>
-          <View style={styles.logoContainer}>
-          <View style={styles.logoContainer}>
+        <View style={styles.logoContainer}>
           <Image 
           source={require('../../assets/logosenai.png')} 
           resizeMode="contain"
           style={{width: '100%', height: undefined, aspectRatio: 4}} 
           />
         </View>
-          </View>
 
       <View style={styles.passwordContainer}>
         <TextInput
@@ -56,17 +53,17 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.passwordInput}
           placeholder="Senha"
-          value={user.password}
-          secureTextEntry={user.showPassord}
+          value={user.senha}
+          secureTextEntry={user.showPassword}
           onChangeText={(value) => {
-            setUser({ ...user, password: value });
+            setUser({ ...user, senha: value });
           }}
         ></TextInput>
         <TouchableOpacity
-          onPress={() => setUser({ ...user, showPassord: !user.showPassord })}
+          onPress={() => setUser({ ...user, showPassword: !user.showPassword })}
         >
           <Ionicons
-            name={user.showPassord ? "eye-off-outline" : "eye-outline"}
+            name={user.showPassword ? "eye-off-outline" : "eye-outline"}
             size={24}
             color="gray"
           />
@@ -75,7 +72,7 @@ export default function Login({ navigation }) {
       </View>
           
           <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
-            <Text style={styles.loginButtonText}>Entrar</Text>
+            <Text style={styles.loginButtonText}> Entrar </Text>
           </TouchableOpacity>
           
           <View style={styles.signupContainer}>
@@ -85,11 +82,10 @@ export default function Login({ navigation }) {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+    </View>
       
       {/* Footer */}
-      <View style={styles.footer}>
-      </View>
+      <View style={styles.footer}></View>
     </View>
   );
 }
