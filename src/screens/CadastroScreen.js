@@ -18,7 +18,7 @@ export default function Cadastro() {
     email: "",
     cpf: "",
     senha: "",
-    showPassord: false,
+    showPassord: true,
   });
 
   const navigation = useNavigation()

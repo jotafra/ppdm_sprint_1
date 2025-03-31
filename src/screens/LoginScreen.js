@@ -10,8 +10,11 @@ import {
   Image,
 } from "react-native";
 import api from "../axios/axios";
+
 import Logo from "../../assets/logosenai.png";
+
 import { Ionicons } from "@expo/vector-icons";
+
 import {useNavigation} from "@react-navigation/native"
 
 export default function Login() {
@@ -31,7 +34,6 @@ export default function Login() {
       },
       (error) => {
         Alert.alert("Erro", error.response.data.error);
-        console.log("erro aq");
       }
     );
   }
